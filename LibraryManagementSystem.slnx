@@ -1,4 +1,6 @@
 <Solution>
   <Project Path="LibraryManagementSystem.Core/LibraryManagementSystem.Core.csproj" Id="d922fce7-ebf8-43c6-8d08-a843b3aacc43" />
+  <Project Path="LibraryManagementSystem.Infrastructure/LibraryManagementSystem.Infrastructure.csproj" Id="db8193fb-9ea2-42c9-a35b-70169faaa4ff" />
+  <Project Path="LibraryManagementSystem.Services/LibraryManagementSystem.Services.csproj" Id="d2b60fe1-0067-4113-ad0a-171853efd6a4" />
   <Project Path="LibraryManagementSystem.Web/LibraryManagementSystem.Web.csproj" />
 </Solution>
