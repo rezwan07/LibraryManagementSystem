@@ -15,9 +15,9 @@ namespace LibraryManagementSystem.Core.Entities
         [Display(Name = "Full Name", Description = "Enter your full name")]
         public string FullName { get; set; } = string.Empty;
 
-        [Required (ErrorMessage = " email is required")]
-        [EmailAddress (ErrorMessage ="invalid email format")]
-        [Display (Name = "Email", Description = "Enter your email address")]
+        [Required(ErrorMessage = " email is required")]
+        [EmailAddress(ErrorMessage = "invalid email format")]
+        [Display(Name = "Email", Description = "Enter your email address")]
         public String Email { get; set; }
 
         [Required]
