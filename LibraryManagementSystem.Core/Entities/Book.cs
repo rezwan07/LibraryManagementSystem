@@ -9,7 +9,7 @@ namespace LibraryManagementSystem.Core.Entities
 {
     public class Book : BaseEntity
     {
-        [Required(ErrorMessage = "ISBN is required")]
+        [Required(ErrorMessage = "ISBN is required")] //ISBN - International Standard Book Number
         [MaxLength(20)]
         [Display(Name = "ISBN")]
         public string ISBN { get; set; } = string.Empty;
