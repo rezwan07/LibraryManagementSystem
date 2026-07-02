@@ -18,7 +18,7 @@ namespace LibraryManagementSystem.Core.Entities
         [Required(ErrorMessage = " email is required")]
         [EmailAddress(ErrorMessage = "invalid email format")]
         [Display(Name = "Email", Description = "Enter your email address")]
-        public String Email { get; set; }
+        public String Email { get; set; } = string.Empty;
 
         [Required]
         public String PasswordHash { get; set; } = string.Empty;
