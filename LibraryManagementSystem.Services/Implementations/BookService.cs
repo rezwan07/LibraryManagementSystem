@@ -3,6 +3,7 @@ using LibraryManagementSystem.Core.Entities;
 using LibraryManagementSystem.Core.Interfaces;
 using LibraryManagementSystem.Services.DTOs;
 using LibraryManagementSystem.Services.Interfaces;
+using LibraryManagementSystem.Core.Exceptions;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -139,7 +140,7 @@ namespace LibraryManagementSystem.Services.Implementations
 
             if(book == null)
             {
-                throw new BookNotFoundException($"Book with ID {id} not found")
+                throw new BookNotFoundException($"Book with ID {id} not found");
             }
 
             var borrowedCount = book.TotalCopies - book.AvailableCopies;
