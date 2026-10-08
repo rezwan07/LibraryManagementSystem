@@ -1,27 +1,52 @@
-var builder = WebApplication.CreateBuilder(args);
+using LibraryManagementSystem.Infrastructure;
+using LibraryManagementSystem.Infrastructure.Data;
+using LibraryManagementSystem.Services;
+using Microsoft.EntityFrameworkCore;
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+namespace LibraryManagementSystem.Web
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    public class Program
+    {
+        public static async Task Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddControllersWithViews();
+            builder.Services.AddInfrastructure(builder.Configuration);
+            builder.Services.AddApplicationServices();
+
+            var app = builder.Build(); 
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<LibraryDbContext>();
+                try
+                {
+                    await dbContext.Database.MigrateAsync();
+                    Console.WriteLine("✅ Database migrated successfully");
+                }
+
+                catch(Exception ex)
+                {
+                    Console.WriteLine($"❌ Migration failed: {ex.Message}");
+                    throw;
+                }
+            }
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseRouting();
+            app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            await app.RunAsync();
+        }
+    }
 }
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.Run();
