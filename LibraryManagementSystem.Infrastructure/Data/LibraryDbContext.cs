@@ -81,15 +81,15 @@ namespace LibraryManagementSystem.Infrastructure.Data
 
             modelBuilder.Entity<Book>()
                 .Property(b => b.CreatedAt)
-                .HasDefaultValueSql("GETUTCTIME");
+                .HasDefaultValueSql("GETUTCDATE()");
 
             modelBuilder.Entity<User>()
                 .Property(u => u.CreatedAt)
-                .HasDefaultValueSql("GETUTCTIME");
+                .HasDefaultValueSql("GETUTCDATE()");
 
             modelBuilder.Entity<BorrowRecord>()
                 .Property(br => br.CreatedAt)
-                .HasDefaultValueSql("GETUTCTIME");
+                .HasDefaultValueSql("GETUTCDATE()");
 
             modelBuilder.Entity<User>().HasData( new User     
                 {

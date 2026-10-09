@@ -22,12 +22,12 @@ namespace LibraryManagementSystem.Web
                 try
                 {
                     await dbContext.Database.MigrateAsync();
-                    Console.WriteLine("✅ Database migrated successfully");
+                    Console.WriteLine("Database migrated successfully");
                 }
 
                 catch(Exception ex)
                 {
-                    Console.WriteLine($"❌ Migration failed: {ex.Message}");
+                    Console.WriteLine($"Migration failed: {ex.Message}");
                     throw;
                 }
             }
