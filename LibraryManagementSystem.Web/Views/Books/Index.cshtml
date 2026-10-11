@@ -1,0 +1,38 @@
+﻿@model IEnumerable<LibraryManagementSystem.Services.DTOs.BookDTO>
+@{
+    ViewData["Title"] = "Books";
+}
+
+<h1>📚 Book List</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>Category</th>
+            <th>Available</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.ISBN</td>
+                <td>@book.Category</td>
+                <td>
+                    @if (book.IsAvailable)
+                    {
+                        <span class="badge bg-success">@book.AvailableCopies / @book.TotalCopies</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Not Available</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

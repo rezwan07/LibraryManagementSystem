@@ -36,6 +36,10 @@ namespace LibraryManagementSystem.Infrastructure.Data
                 .HasForeignKey(br => br.BookId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<BorrowRecord>()
+                .Property(br => br.FineAmount)
+                .HasPrecision(18, 2);
+
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique()

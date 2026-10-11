@@ -69,7 +69,7 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                     BorrowDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ReturnDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    FineAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    FineAmount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
                     IsFinePaid = table.Column<bool>(type: "bit", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
@@ -98,15 +98,15 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                 columns: new[] { "Id", "Author", "AvailableCopies", "Category", "CreatedAt", "ISBN", "IsDeleted", "Location", "PublicationYear", "Publisher", "Title", "TotalCopies", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, "F. Scott Fitzgerald", 5, "Fiction", new DateTime(2026, 10, 9, 19, 31, 25, 896, DateTimeKind.Utc).AddTicks(1344), "978-0-452-28423-4", false, "Shelf A-1", 1925, "Scribner", "The Great Gatsby", 5, null },
-                    { 2, "Harper Lee", 3, "Fiction", new DateTime(2026, 10, 9, 19, 31, 25, 896, DateTimeKind.Utc).AddTicks(1350), "978-0-06-112008-4", false, "Shelf A-2", 1960, "HarperCollins", "To Kill a Mockingbird", 3, null },
-                    { 3, "George Orwell", 4, "Science Fiction", new DateTime(2026, 10, 9, 19, 31, 25, 896, DateTimeKind.Utc).AddTicks(1355), "978-0-14-143951-8", false, "Shelf B-1", 1949, "Penguin Books", "1984", 4, null }
+                    { 1, "F. Scott Fitzgerald", 5, "Fiction", new DateTime(2026, 10, 10, 8, 30, 19, 587, DateTimeKind.Utc).AddTicks(2586), "978-0-452-28423-4", false, "Shelf A-1", 1925, "Scribner", "The Great Gatsby", 5, null },
+                    { 2, "Harper Lee", 3, "Fiction", new DateTime(2026, 10, 10, 8, 30, 19, 587, DateTimeKind.Utc).AddTicks(2591), "978-0-06-112008-4", false, "Shelf A-2", 1960, "HarperCollins", "To Kill a Mockingbird", 3, null },
+                    { 3, "George Orwell", 4, "Science Fiction", new DateTime(2026, 10, 10, 8, 30, 19, 587, DateTimeKind.Utc).AddTicks(2595), "978-0-14-143951-8", false, "Shelf B-1", 1949, "Penguin Books", "1984", 4, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedAt", "Email", "FullName", "IsActive", "IsDeleted", "PasswordHash", "PhoneNumber", "Role", "UpdatedAt" },
-                values: new object[] { 1, new DateTime(2026, 10, 9, 19, 31, 25, 896, DateTimeKind.Utc).AddTicks(1023), "admin@library.com", "System Administrator", true, false, "$2a$11$K8Q8xQ8xQ8xQ8xQ8xQ8xQu", "01740228229", "Admin", null });
+                values: new object[] { 1, new DateTime(2026, 10, 10, 8, 30, 19, 587, DateTimeKind.Utc).AddTicks(2273), "admin@library.com", "System Administrator", true, false, "$2a$11$K8Q8xQ8xQ8xQ8xQ8xQ8xQu", "01740228229", "Admin", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Books_Author",

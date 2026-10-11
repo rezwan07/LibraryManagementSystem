@@ -101,7 +101,7 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                             Author = "F. Scott Fitzgerald",
                             AvailableCopies = 5,
                             Category = "Fiction",
-                            CreatedAt = new DateTime(2026, 10, 9, 19, 31, 25, 896, DateTimeKind.Utc).AddTicks(1344),
+                            CreatedAt = new DateTime(2026, 10, 10, 8, 30, 19, 587, DateTimeKind.Utc).AddTicks(2586),
                             ISBN = "978-0-452-28423-4",
                             IsDeleted = false,
                             Location = "Shelf A-1",
@@ -116,7 +116,7 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                             Author = "Harper Lee",
                             AvailableCopies = 3,
                             Category = "Fiction",
-                            CreatedAt = new DateTime(2026, 10, 9, 19, 31, 25, 896, DateTimeKind.Utc).AddTicks(1350),
+                            CreatedAt = new DateTime(2026, 10, 10, 8, 30, 19, 587, DateTimeKind.Utc).AddTicks(2591),
                             ISBN = "978-0-06-112008-4",
                             IsDeleted = false,
                             Location = "Shelf A-2",
@@ -131,7 +131,7 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                             Author = "George Orwell",
                             AvailableCopies = 4,
                             Category = "Science Fiction",
-                            CreatedAt = new DateTime(2026, 10, 9, 19, 31, 25, 896, DateTimeKind.Utc).AddTicks(1355),
+                            CreatedAt = new DateTime(2026, 10, 10, 8, 30, 19, 587, DateTimeKind.Utc).AddTicks(2595),
                             ISBN = "978-0-14-143951-8",
                             IsDeleted = false,
                             Location = "Shelf B-1",
@@ -165,6 +165,7 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal?>("FineAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("IsDeleted")
@@ -258,7 +259,7 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2026, 10, 9, 19, 31, 25, 896, DateTimeKind.Utc).AddTicks(1023),
+                            CreatedAt = new DateTime(2026, 10, 10, 8, 30, 19, 587, DateTimeKind.Utc).AddTicks(2273),
                             Email = "admin@library.com",
                             FullName = "System Administrator",
                             IsActive = true,
