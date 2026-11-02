@@ -1,0 +1,77 @@
+﻿@model LibraryManagementSystem.Services.DTOs.BookDTO
+@{
+    ViewData["Title"] = "Book Details";
+}
+
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 class="mb-0">📖 Book Details</h3>
+                @if(Model.IsAvailable)
+                {
+                    <span class="badge bg-success fs-6">Available</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger fs-6">Not Available</span>
+                }
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">Title</dt>
+                    <dd class="col-sm-9"><strong>@Model.Title</strong></dd>
+
+                    <dt class="col-sm-3">Author</dt>
+                    <dd class="col-sm-9">@Model.Author</dd>
+
+                    <dt class="col-sm-3">ISBN</dt>
+                    <dd class="col-sm-9"><code>@Model.ISBN</code></dd>
+
+                    <dt class="col-sm-3">Publisher</dt>
+                    <dd class="col-sm-9">@(Model.Publisher ?? "N/A")</dd>
+
+                    <dt class="col-sm-3">Publication Year</dt>
+                    <dd class="col-sm-9">@Model.PublicationYear</dd>
+
+                    <dt class="col-sm-3">Category</dt>
+                    <dd class="col-sm-9">
+                        @if (!string.IsNullOrEmpty(Model.Category))
+                        {
+                            <span class="badge bg-secondary">@Model.Category</span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Not categorized</span>
+                        }
+                    </dd>
+
+                    <dt class="col-sm-3">Location</dt>
+                    <dd class="col-sm-9">@(Model.Location ?? "N/A")</dd>
+
+                    <dt class="col-sm-3">Total Copies</dt>
+                    <dd class="col-sm-9">@Model.TotalCopies</dd>
+
+                    <dt class="col-sm-3">Available Copies</dt>
+                    <dd class="col-sm-9">
+                        <span class="badge bg-info">@Model.AvailableCopies</span>
+                    </dd>
+
+                    <dt class="col-sm-3">Borrowed</dt>
+                    <dd class="col-sm-9">@Model.BorrowedCopies</dd>
+
+                    <dt class="col-sm-3">Added On</dt>
+                    <dd class="col-sm-9">@Model.CreatedAt.ToString("dd MMM yyyy")</dd>
+                </dl>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">← Back to List</a>
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">✏️ Edit</a>
+                        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">🗑️ Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
