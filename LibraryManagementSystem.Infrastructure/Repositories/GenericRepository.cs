@@ -38,6 +38,8 @@ namespace LibraryManagementSystem.Infrastructure.Repositories
                 var condition = Expression.Equal(property, falseValue);
                 var lambda = Expression.Lambda<Func<T, bool>>(condition, parameter);
 
+                return await _dbSet.Where(lambda).ToListAsync();
+
             }
 
             return await _dbSet.ToListAsync();
