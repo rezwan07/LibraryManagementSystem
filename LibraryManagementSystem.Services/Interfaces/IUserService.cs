@@ -9,7 +9,7 @@ namespace LibraryManagementSystem.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<AuthResultDTO> RegisterAsync(RegisterDTO registerDTO);
+        Task<AuthResultDTO> RegisterAsync(RegisterDTO registerDtO);
         Task<AuthResultDTO> LoginAsync(LoginDTO loginDto);
         Task<IEnumerable<UserDTO>> GetAllUsersAsync();
         Task<UserDTO?> GetUserByIdAsync(int id);
