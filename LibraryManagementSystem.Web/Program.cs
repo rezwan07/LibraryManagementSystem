@@ -1,5 +1,5 @@
 using LibraryManagementSystem.Infrastructure;
-using LibraryManagementSystem.Infrastructure.Data;
+using LibraryManagementSystem.Infrastructure.Authentication;
 using LibraryManagementSystem.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,24 +12,16 @@ namespace LibraryManagementSystem.Web
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllersWithViews();
             builder.Services.AddInfrastructure(builder.Configuration);
-            builder.Services.AddApplicationServices();
+            builder.Services.AddApplicationServices(builder.Configuration);
+            builder.Services.AddJwtAuthentication(builder.Configuration);
+            builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build(); 
 
             using (var scope = app.Services.CreateScope())
             {
-                var dbContext = scope.ServiceProvider.GetRequiredService<LibraryDbContext>();
-                try
-                {
-                    await dbContext.Database.MigrateAsync();
-                    Console.WriteLine("Database migrated successfully");
-                }
-
-                catch(Exception ex)
-                {
-                    Console.WriteLine($"Migration failed: {ex.Message}");
-                    throw;
-                }
+                var dbContext = scope.ServiceProvider.GetRequiredService<LibraryManagementSystem.Infrastructure.Data.LibraryDbContext>();
+                await dbContext.Database.MigrateAsync();
             }
             if (!app.Environment.IsDevelopment())
             {
@@ -40,6 +32,7 @@ namespace LibraryManagementSystem.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

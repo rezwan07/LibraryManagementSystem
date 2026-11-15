@@ -13,9 +13,14 @@ namespace LibraryManagementSystem.Services.Mappings
     {
         public MappingProfile()
         {
+            // Book mappings
             CreateMap<Book, BookDTO>();
             CreateMap<CreateBookDTO, Book>();
             CreateMap<UpdateBookDTO, Book>();
+
+            //User mappings
+            // PasswordHash auto ignore
+            CreateMap<User, UserDTO>();
         }
     }
 }
