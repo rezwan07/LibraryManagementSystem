@@ -1,0 +1,66 @@
+﻿@model IEnumerable<LibraryManagementSystem.Services.DTOs.UserDTO>
+
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<h2>👥 User Management</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<table class="table table-striped mt-3">
+    <thead class="table-dark">
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Joined</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FullName</td>
+                <td>@user.Email</td>
+                <td>@(user.PhoneNumber ?? "N/A")</td>
+                <td>
+                    <span class="badge bg-@(user.Role == "Admin" ? "danger" :
+                                                                     user.Role == "Librarian" ? "warning" : "info")">
+                        @user.Role
+                    </span>
+                </td>
+                <td>
+                    @if (user.IsActive)
+                    {
+                        <span class="badge bg-success">Active</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Inactive</span>
+                    }
+                </td>
+                <td>@user.CreatedAt.ToString("dd MMM yyyy")</td>
+                <td>
+                    <form asp-action="ToggleStatus" asp-route-id="@user.Id" method="post" class="d-inline">
+                        <button type="submit"
+                                class="btn btn-sm @(user.IsActive ? "btn-warning" : "btn-success")"
+                                onclick="return confirm('Are you sure?')">
+                            @(user.IsActive ? "Deactivate" : "Activate")
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

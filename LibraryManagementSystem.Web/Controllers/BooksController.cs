@@ -1,11 +1,13 @@
 ﻿using LibraryManagementSystem.Core.Exceptions;
 using LibraryManagementSystem.Services.DTOs;
 using LibraryManagementSystem.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace LibraryManagementSystem.Web.Controllers
 {
+    [Authorize]
     public class BooksController : Controller
     {
         private readonly IBookService _bookService;
@@ -60,6 +62,7 @@ namespace LibraryManagementSystem.Web.Controllers
             return View(book);
         }
 
+        [Authorize(Roles = "Admin,Librarian")]
         public IActionResult Create()
         {
             return View(new CreateBookDTO());
@@ -67,6 +70,7 @@ namespace LibraryManagementSystem.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Librarian")]
         public async Task<IActionResult> Create(CreateBookDTO createDto)
         {
             if (!ModelState.IsValid)
@@ -92,6 +96,7 @@ namespace LibraryManagementSystem.Web.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,Librarian")]
         public async Task<IActionResult> Edit(int id)
         {
             var book = await _bookService.GetBookByIdAsync(id);
@@ -118,6 +123,7 @@ namespace LibraryManagementSystem.Web.Controllers
             return View(updateDto);
         }
 
+        [Authorize(Roles = "Admin,Librarian")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, UpdateBookDTO updateDto)
@@ -156,6 +162,7 @@ namespace LibraryManagementSystem.Web.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var book = await _bookService.GetBookByIdAsync(id);
@@ -171,6 +178,7 @@ namespace LibraryManagementSystem.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             try

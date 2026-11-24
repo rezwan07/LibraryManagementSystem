@@ -1,6 +1,7 @@
 ﻿using LibraryManagementSystem.Services.DTOs;
 using LibraryManagementSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -16,12 +17,14 @@ namespace LibraryManagementSystem.Web.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Register()
         {
             return View(new RegisterDTO());
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterDTO registerDto)
@@ -44,6 +47,7 @@ namespace LibraryManagementSystem.Web.Controllers
 
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login(string? returnUrl = null)
         {
@@ -51,6 +55,7 @@ namespace LibraryManagementSystem.Web.Controllers
             return View(new LoginDTO());
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginDTO loginDto, string? returnUrl = null)
@@ -84,14 +89,20 @@ namespace LibraryManagementSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            Response.Cookies.Delete("access_token");
-            await HttpContext.SignOutAsync();
+            Response.Cookies.Delete("access_token", new CookieOptions
+            {
+                Path = "/",
+                Secure = true,
+                HttpOnly = true,
+                SameSite = SameSiteMode.Strict
+            });
 
             TempData["SuccessMessage"] = "Logged out successfully";
 
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult AccessDenied()
         {
